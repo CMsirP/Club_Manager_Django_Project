@@ -4,8 +4,9 @@ from club_manager.models import *
 
 
 def index(request):
-    return HttpResponse("Stub for manager index")
+    return render(request, 'club_manager/index.html')
 
 
-# def club_page(request, c_name):
-#     club = get_object_or_404(Club, club_name=c_name)
+def clubs(request):
+    all_clubs = Club.objects.order_by('club_name')
+
