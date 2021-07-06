@@ -15,7 +15,7 @@ class Member(models.Model):
     Members represent all people associated with a club: players, coaches, parents, etc.
     """
     # Members belong to a specific club
-    club = models.ForeignKey(Club, on_delete=models.CASCADE, null=True)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     birthdate = models.DateField('birth date')
     email = models.CharField(max_length=100)
@@ -41,7 +41,7 @@ class Coach(models.Model):
     # Coaches are members
     coach = models.OneToOneField(Member, on_delete=models.CASCADE)
     # Coaches are associated with one particular group
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Coach: {self.coach.name}"
@@ -51,7 +51,7 @@ class Officer(models.Model):
     # Officers are members
     officer = models.OneToOneField(Member, on_delete=models.CASCADE)
     # Officers serve for a given club
-    club = models.ForeignKey(Club, on_delete=models.CASCADE, null=True)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
     # Officers have a role such as president, treasurer, etc.
     role = models.CharField(max_length=100)
 
@@ -73,7 +73,7 @@ class Player(models.Model):
 
 class Tournament(models.Model):
     # tournaments are associated with a specific club
-    club = models.ForeignKey(Club, on_delete=models.CASCADE, null=True)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
     tourn_name = models.CharField(max_length=200, default="Tournament")
     # tournaments have players
     players_list = models.ManyToManyField(Player)

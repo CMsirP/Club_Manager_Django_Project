@@ -7,5 +7,7 @@ urlpatterns = [
     # Homepage
     path('', views.index, name='index'),
     # Club viewer
-    path('clubs/', views.clubs, name='clubs')
+    path('clubs/', views.clubs, name='clubs'),
+    # Detail page for a single club
+    path('clubs/<int:club_id>/', views.club, name="club"),
 ]

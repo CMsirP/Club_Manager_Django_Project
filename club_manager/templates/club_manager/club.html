@@ -1,0 +1,24 @@
+{% extends "club_manager/base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>club_detail</title>
+</head>
+<body>
+    {% block content %}
+        <p>Club: {{ club }}</p>
+
+        <p>Groups:</p>
+            <ul>
+              {% for group in groups %}
+              <li>
+                  <p> {{ group.group_name }}</p>
+              </li>
+                {% empty %}
+                  <li>No groups have been added to {{ club }} yet.</li>
+              {% endfor %}
+            </ul>
+    {% endblock content %}
+</body>
+</html>
