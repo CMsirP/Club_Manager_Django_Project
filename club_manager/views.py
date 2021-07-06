@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from club_manager.models import Club
+from club_manager.models import Club, Group
 
 
 def index(request):
@@ -20,3 +20,12 @@ def club(request, club_id):
     groups = club.group_set.order_by('group_name')
     context = {'club': club, 'groups': groups}
     return render(request, 'club_manager/club.html', context)
+
+
+def group(request, group_id):
+    """Shows a single group and its details."""
+    group = Group.objects.get(id=group_id)
+    players = group.player_set.order_by('player_id')
+    coach = group.coach_set.order_by('coach_id')
+    context = {'group': group, 'players': players}
+    return render(request, 'club_manager/group.html', context)

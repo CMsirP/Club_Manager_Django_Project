@@ -30,11 +30,8 @@ class Group(models.Model):
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     group_name = models.CharField(max_length=100)
 
-    def get_players(self):
-        return Group.objects.get(Player)
-
     def __str__(self):
-        return f"Group: {self.group_name}"
+        return self.group_name
 
 
 class Coach(models.Model):
@@ -42,6 +39,9 @@ class Coach(models.Model):
     coach = models.OneToOneField(Member, on_delete=models.CASCADE)
     # Coaches are associated with one particular group
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "coaches"
 
     def __str__(self):
         return f"Coach: {self.coach.name}"
@@ -68,7 +68,7 @@ class Player(models.Model):
     ability_level = models.CharField(max_length=20, default="Beginner")
 
     def __str__(self):
-        return f"{self.player.name}, {self.ability_level}"
+        return f"{self.player.name}, {self.ability_level}, {self.player.email}"
 
 
 class Tournament(models.Model):

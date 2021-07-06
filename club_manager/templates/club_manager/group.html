@@ -3,20 +3,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>club_detail</title>
+    <title>group</title>
 </head>
 <body>
     {% block content %}
-        <p>Club: {{ club }}</p>
+        <p>Group: {{ group }}</p>
 
-        <p>Groups:</p>
+        <p>Coach: {{ coach }}</p>
+
+        <p>Players:</p>
             <ul>
-              {% for group in groups %}
+              {% for player in players %}
               <li>
-                  <a href="{% url 'club_manager:group' group.id %}">{{ group }}</a>
+                  <p> {{ player }}</p>
               </li>
                 {% empty %}
-                  <li>No groups have been added to {{ club }} yet.</li>
+                  <li>No players have been added to {{ group }} yet.</li>
               {% endfor %}
             </ul>
     {% endblock content %}
