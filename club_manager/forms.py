@@ -1,5 +1,5 @@
 from django import forms
-from .models import Club, Group
+from .models import Club, Group, Member
 
 
 class ClubForm(forms.ModelForm):
@@ -14,3 +14,10 @@ class GroupForm(forms.ModelForm):
         model = Group
         fields = {'group_name'}
         labels = {'group name': ''}
+
+
+class MemberForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        fields = {'name', 'birthdate', 'email', 'phone'}
+        labels = {'name:', 'birthdate:', 'email:', 'primary phone number:'}

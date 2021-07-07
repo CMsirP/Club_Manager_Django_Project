@@ -22,6 +22,20 @@
                   <li>No groups have been added to {{ club }} yet.</li>
               {% endfor %}
             </ul>
+
+        <p>Members:</p>
+        <p>
+            <a href="{% url 'club_manager:new_member' club.id %}">Add new member</a>
+        </p>
+            <ul>
+              {% for member in members %}
+              <li>
+                  <a href="{% url 'club_manager:member' member.id %}">{{ member }}</a>
+              </li>
+                {% empty %}
+                  <li>No members have been added to {{ club }} yet.</li>
+              {% endfor %}
+            </ul>
     {% endblock content %}
 </body>
 </html>
