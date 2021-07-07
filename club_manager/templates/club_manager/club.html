@@ -36,6 +36,10 @@
                   <li>No members have been added to {{ club }} yet.</li>
               {% endfor %}
             </ul>
+
+        <p>
+            <a href="{% url 'club_manager:edit_club' club.id %}">Edit club</a>
+        </p>
     {% endblock content %}
 </body>
 </html>

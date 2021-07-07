@@ -19,5 +19,11 @@ urlpatterns = [
     # Form page for adding a new group to a club
     path('new_group/<int:club_id>/', views.new_group, name='new_group'),
     # Form page for adding a new member to a club
-    path('new_member/<int:club_id>/', views.new_member, name='new_member')
+    path('new_member/<int:club_id>/', views.new_member, name='new_member'),
+    # Page for editing a particular group
+    path('edit_group/<int:group_id>/', views.edit_group, name='edit_group'),
+    # Page for editing a particular member
+    path('edit_member/<int:member_id>/', views.edit_member, name='edit_member'),
+    # Page for editing a particular club
+    path('edit_club/<int:club_id>/', views.edit_club, name='edit_club')
 ]

@@ -98,3 +98,59 @@ def new_member(request, club_id):
     # Display a blank or invalid form.
     context = {'club': club, 'form': form}
     return render(request, 'club_manager/new_member.html', context)
+
+
+def edit_group(request, group_id):
+    """Edit an existing group."""
+    group = Group.objects.get(id=group_id)
+    club = group.club
+
+    if request.method != 'POST':
+        # Initial request; pre-fill form with the current group details.
+        form = GroupForm(instance=group)
+    else:
+        # POST data submitted; process data.
+        form = GroupForm(instance=group, data=request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect('club_manager:club', club_id=club.id)
+
+    context = {'club': club, 'group': group, 'form': form}
+    return render(request, 'club_manager/edit_group.html', context)
+
+
+def edit_member(request, member_id):
+    """Edit an existing member."""
+    member = Member.objects.get(id=member_id)
+    club = member.club
+
+    if request.method != 'POST':
+        # Initial request; pre-fill form with the current member details.
+        form = MemberForm(instance=member)
+    else:
+        # POST data submitted; process data.
+        form = MemberForm(instance=member, data=request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect('club_manager:club', club_id=club.id)
+
+    context = {'club': club, 'member': member, 'form': form}
+    return render(request, 'club_manager/edit_member.html', context)
+
+
+def edit_club(request, club_id):
+    """Edit an existing club."""
+    club = Club.objects.get(id=club_id)
+
+    if request.method != 'POST':
+        # Initial request; pre-fill form with the current club details.
+        form = ClubForm(instance=club)
+    else:
+        # POST data submitted; process data.
+        form = ClubForm(instance=club, data=request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect('club_manager:club', club_id=club.id)
+
+    context = {'club': club, 'form': form}
+    return render(request, 'club_manager/edit_club.html', context)

@@ -10,6 +10,9 @@
         <p><a href="{% url 'club_manager:club' club.id %}">{{ club }}</a></p>
 
         <p>Group: {{ group }}</p>
+        <p>
+            <a href="{% url 'club_manager:edit_group' group.id %}">Edit group</a>
+        </p>
 
         <p>Coaches:</p>
             <ul>

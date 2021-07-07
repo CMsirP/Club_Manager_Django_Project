@@ -10,12 +10,18 @@
         <p><a href="{% url 'club_manager:club' club.id %}">{{ club }}</a></p>
 
         <p>Member:
-            {{ member_name }}
-            {{ member_birthdate }}
-            {{ member_email }}
-            {{ member_phone }}
+            <li>
+            <p>Name: {{ member.name }}</p>
+            <p>Birthdate: {{ member.birthdate }}</p>
+            <p>Email: {{ member.email }}</p>
+            <p>Phone: {{ member.phone }}</p>
+            </li>
+
         </p>
 
+        <p>
+            <a href="{% url 'club_manager:edit_member' member.id %}">Edit member</a>
+        </p>
     {% endblock content %}
 </body>
 </html>
