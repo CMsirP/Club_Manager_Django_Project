@@ -31,7 +31,7 @@ class Group(models.Model):
     group_name = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.club}, {self.group_name}"
+        return f"{self.group_name}"
 
 
 class Coach(models.Model):
