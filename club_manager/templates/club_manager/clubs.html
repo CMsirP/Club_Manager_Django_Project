@@ -17,6 +17,9 @@
                   <li>No clubs have been added yet.</li>
               {% endfor %}
             </ul>
+
+        <a href="{% url 'club_manager:new_club' %}">Create a new club</a>
+
     {% endblock content %}
 </body>
 </html>

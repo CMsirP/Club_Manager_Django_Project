@@ -9,7 +9,16 @@
     {% block content %}
         <p>Group: {{ group }}</p>
 
-        <p>Coach: {{ coach }}</p>
+        <p>Coaches:</p>
+            <ul>
+              {% for coach in coaches %}
+              <li>
+                  <p> {{ coach }}</p>
+              </li>
+                {% empty %}
+                  <li>No coaches have been added to {{ group }} yet.</li>
+              {% endfor %}
+            </ul>
 
         <p>Players:</p>
             <ul>
