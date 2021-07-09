@@ -22,6 +22,10 @@
         <p>
             <a href="{% url 'club_manager:edit_member' member.id %}">Edit member</a>
         </p>
+
+        <p>
+            <a href="{% url 'club_manager:add_player' member.id %}">Add member as a player to a group</a>
+        </p>
     {% endblock content %}
 </body>
 </html>

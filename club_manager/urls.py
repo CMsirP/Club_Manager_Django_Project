@@ -25,5 +25,7 @@ urlpatterns = [
     # Page for editing a particular member
     path('edit_member/<int:member_id>/', views.edit_member, name='edit_member'),
     # Page for editing a particular club
-    path('edit_club/<int:club_id>/', views.edit_club, name='edit_club')
+    path('edit_club/<int:club_id>/', views.edit_club, name='edit_club'),
+    # Page for adding a member as a player to a group
+    path('add_player/<int:member_id>/', views.add_player, name='add_player')
 ]

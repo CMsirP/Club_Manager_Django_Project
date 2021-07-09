@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from club_manager.models import Club, Group, Member
-from .forms import ClubForm, GroupForm, MemberForm
+from club_manager.models import Club, Group, Member, Player
+from .forms import ClubForm, GroupForm, MemberForm, PlayerForm
 
 
 def index(request):
@@ -154,3 +154,25 @@ def edit_club(request, club_id):
 
     context = {'club': club, 'form': form}
     return render(request, 'club_manager/edit_club.html', context)
+
+
+def add_player(request, member_id):
+    """Add a particular member as a player to a group."""
+    member = Member.objects.get(id=member_id)
+    club = member.club
+
+    if request.method != 'POST':
+        form = PlayerForm(member.id)
+    else:
+        # POST data submitted; process data.
+        form = PlayerForm(member.id, data=request.POST)
+        if form.is_valid():
+            new_player = form.save(commit=False)
+            new_player.player = member
+            new_player.save()
+            return redirect('club_manager:club', club_id=club.id)
+
+    context = {'club': club, 'member': member, 'form': form}
+    return render(request, 'club_manager/add_player.html', context)
+    
+
