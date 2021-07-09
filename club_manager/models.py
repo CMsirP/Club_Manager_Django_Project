@@ -44,7 +44,7 @@ class Coach(models.Model):
         verbose_name_plural = "coaches"
 
     def __str__(self):
-        return f"Coach: {self.coach.name}"
+        return f"Coach: {self.member.name}"
 
 
 class Officer(models.Model):

@@ -1,0 +1,19 @@
+{% extends "club_manager/base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add_coach</title>
+</head>
+<body>
+    {% block content %}
+        <p><a href="{% url 'club_manager:group' group.id %}">{{ group }}</a></p>
+
+        <form action="{% url 'club_manager:add_coach' group.id %}" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button name="submit">Add coach to this group</button>
+        </form>
+    {% endblock content %}
+</body>
+</html>

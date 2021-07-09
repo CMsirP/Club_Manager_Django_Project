@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from club_manager.models import Club, Group, Member, Player
-from .forms import ClubForm, GroupForm, MemberForm, PlayerForm
+from club_manager.models import Club, Group, Member, Player, Officer, Coach
+from .forms import ClubForm, GroupForm, MemberForm, PlayerForm, OfficerForm, CoachForm
 
 
 def index(request):
@@ -20,7 +20,8 @@ def club(request, club_id):
     club = Club.objects.get(id=club_id)
     groups = club.group_set.order_by('group_name')
     members = club.member_set.order_by('name')
-    context = {'club': club, 'groups': groups, 'members': members}
+    officers = club.officer_set.order_by('role')
+    context = {'club': club, 'groups': groups, 'members': members, 'officers': officers}
     return render(request, 'club_manager/club.html', context)
 
 
@@ -28,8 +29,8 @@ def group(request, group_id):
     """Shows a single group and its details."""
     group = Group.objects.get(id=group_id)
     club = group.club
-    players = group.player_set.order_by('player_id')
-    coaches = group.coach_set.order_by('coach_id')
+    players = group.player_set.order_by('id')
+    coaches = group.coach_set.order_by('id')
     context = {'club': club, 'group': group, 'players': players, 'coaches': coaches}
     return render(request, 'club_manager/group.html', context)
 
@@ -176,3 +177,42 @@ def add_player(request, member_id):
     return render(request, 'club_manager/add_player.html', context)
     
 
+def add_officer(request, member_id):
+    """Add a particular member as an officer to their associated club."""
+    member = Member.objects.get(id=member_id)
+    club = member.club
+
+    if request.method != 'POST':
+        form = OfficerForm()
+    else:
+        # POST data submitted; process data.
+        form = OfficerForm(data=request.POST)
+        if form.is_valid():
+            new_officer = form.save(commit=False)
+            new_officer.club = club
+            new_officer.member = member
+            new_officer.save()
+            return redirect('club_manager:club', club_id=club.id)
+
+    context = {'club': club, 'member': member, 'form': form}
+    return render(request, 'club_manager/add_officer.html', context)
+
+
+def add_coach(request, group_id):
+    """Add a member as a coach to a group."""
+    group = Group.objects.get(id=group_id)
+    club = group.club
+
+    if request.method != 'POST':
+        form = CoachForm(group.id)
+    else:
+        # POST data submitted; process data.
+        form = CoachForm(group.id, data=request.POST)
+        if form.is_valid():
+            new_coach = form.save(commit=False)
+            new_coach.group = group
+            new_coach.save()
+            return redirect('club_manager:group', group_id=group.id)
+
+    context = {'club': club, 'group': group, 'form': form}
+    return render(request, 'club_manager/add_coach.html', context)

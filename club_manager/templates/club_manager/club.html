@@ -41,6 +41,17 @@
         <p>
             <a href="{% url 'club_manager:edit_club' club.id %}">Edit club</a>
         </p>
+
+        <p>Officers:</p>
+            <ul>
+              {% for officer in officers %}
+              <li>
+                {{ officer }}
+              </li>
+                {% empty %}
+                  <li>No officers have been added to {{ club }} yet.</li>
+              {% endfor %}
+            </ul>
     {% endblock content %}
 </body>
 </html>

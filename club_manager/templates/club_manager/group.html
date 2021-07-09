@@ -25,6 +25,8 @@
               {% endfor %}
             </ul>
 
+            <p><a href="{% url 'club_manager:add_coach' group.id %}">Add a coach</a></p>
+
         <p>Players:</p>
             <ul>
               {% for player in players %}
