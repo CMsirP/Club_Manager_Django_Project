@@ -168,7 +168,7 @@ def add_player(request, member_id):
         form = PlayerForm(member.id, data=request.POST)
         if form.is_valid():
             new_player = form.save(commit=False)
-            new_player.player = member
+            new_player.member = member
             new_player.save()
             return redirect('club_manager:club', club_id=club.id)
 
