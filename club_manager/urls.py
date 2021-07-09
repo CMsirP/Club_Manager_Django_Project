@@ -31,5 +31,9 @@ urlpatterns = [
     # Page for adding a member as an officer to a club
     path('add_officer/<int:member_id>/', views.add_officer, name='add_officer'),
     # Page for adding a member as a coach to a group
-    path('add_coach/<int:group_id>/', views.add_coach, name='add_coach')
+    path('add_coach/<int:group_id>/', views.add_coach, name='add_coach'),
+    # Page for adding a tournament to the club
+    path('add_tournament/<int:club_id>/', views.add_tournament, name='add_tournament'),
+    # Detail page for a single tournament
+    path('tournament/<int:tournament_id>/', views.tournament, name='tournament')
 ]

@@ -15,6 +15,7 @@
         </p>
 
         <p>Coaches:</p>
+            <p>
             <ul>
               {% for coach in coaches %}
               <li>
@@ -24,6 +25,7 @@
                   <li>No coaches have been added to {{ group }} yet.</li>
               {% endfor %}
             </ul>
+            </p>
 
             <p><a href="{% url 'club_manager:add_coach' group.id %}">Add a coach</a></p>
 

@@ -1,0 +1,24 @@
+{% extends "club_manager/base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tournament</title>
+</head>
+<body>
+    {% block content %}
+        <p>Tournament:</p>
+            <li>
+            <p>Name: {{ tournament.tourn_name }}</p>
+            <p>Date: {{ tournament.t_date }}</p>
+            <p>Sponsoring Club: {{ club }}</p>
+            </li>
+
+        <p>Registered Players:</p>
+            <ul>
+                <p>{{ players }}</p>
+            </ul>
+
+    {% endblock content %}
+</body>
+</html>

@@ -38,9 +38,19 @@
               {% endfor %}
             </ul>
 
+        <p>Tournaments:</p>
         <p>
-            <a href="{% url 'club_manager:edit_club' club.id %}">Edit club</a>
+            <a href="{% url 'club_manager:add_tournament' club.id %}">Create tournament</a>
         </p>
+            <ul>
+              {% for tournament in tournaments %}
+              <li>
+                  <a href="{% url 'club_manager:tournament' tournament.id %}">{{ tournament }}</a>
+              </li>
+                {% empty %}
+                  <li>No tournaments have been added to {{ club }} yet.</li>
+              {% endfor %}
+            </ul>
 
         <p>Officers:</p>
             <ul>
@@ -52,6 +62,10 @@
                   <li>No officers have been added to {{ club }} yet.</li>
               {% endfor %}
             </ul>
+
+        <p>
+            <a href="{% url 'club_manager:edit_club' club.id %}">Edit club</a>
+        </p>
     {% endblock content %}
 </body>
 </html>

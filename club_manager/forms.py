@@ -1,6 +1,6 @@
 from django import forms
 from django.db import models
-from .models import Club, Group, Member, Player, Officer, Coach
+from .models import Club, Group, Member, Player, Officer, Coach, Tournament
 
 
 class ClubForm(forms.ModelForm):
@@ -52,3 +52,15 @@ class CoachForm(forms.ModelForm):
         group = Group.objects.get(id=group_id)
         club = group.club
         self.fields['member'].queryset = Member.objects.filter(club=club.id)
+
+
+class TournamentForm(forms.ModelForm):
+    class Meta:
+        model = Tournament
+        fields = {'tourn_name', 'players_list', 't_date'}
+        labels = {'tournament name:', 'players:', 'tournament date:'}
+
+    def __init__(self, club_id, *args, **kwargs):
+        super(TournamentForm, self).__init__(*args, **kwargs)
+        club = Club.objects.get(id=club_id)
+        self.fields['players_list'].queryset = Player.objects.filter(group__club_id=club.id)

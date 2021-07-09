@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from club_manager.models import Club, Group, Member, Player, Officer, Coach
-from .forms import ClubForm, GroupForm, MemberForm, PlayerForm, OfficerForm, CoachForm
+from club_manager.models import Club, Group, Member, Player, Officer, Coach, Tournament
+from .forms import ClubForm, GroupForm, MemberForm, PlayerForm, OfficerForm, CoachForm, TournamentForm
 
 
 def index(request):
@@ -21,7 +21,11 @@ def club(request, club_id):
     groups = club.group_set.order_by('group_name')
     members = club.member_set.order_by('name')
     officers = club.officer_set.order_by('role')
-    context = {'club': club, 'groups': groups, 'members': members, 'officers': officers}
+    tournaments = club.tournament_set.order_by('t_date')
+    context = {
+        'club': club, 'groups': groups, 'members': members,
+        'officers': officers, 'tournaments': tournaments
+               }
     return render(request, 'club_manager/club.html', context)
 
 
@@ -41,6 +45,15 @@ def member(request, member_id):
     club = member.club
     context = {'club': club, 'member': member}
     return render(request, 'club_manager/member.html', context)
+
+
+def tournament(request, tournament_id):
+    """Shows a single member and their details."""
+    tournament = Tournament.objects.get(id=tournament_id)
+    club = tournament.club
+    players = tournament.players_list.all()
+    context = {'club': club, 'players': players, 'tournament': tournament}
+    return render(request, 'club_manager/tournament.html', context)
 
 
 def new_club(request):
@@ -216,3 +229,21 @@ def add_coach(request, group_id):
 
     context = {'club': club, 'group': group, 'form': form}
     return render(request, 'club_manager/add_coach.html', context)
+
+
+def add_tournament(request, club_id):
+    club = Club.objects.get(id=club_id)
+
+    if request.method != 'POST':
+        form = TournamentForm(club.id)
+    else:
+        # POST data submitted; process data.
+        form = TournamentForm(club.id, data=request.POST)
+        if form.is_valid():
+            new_tournament = form.save(commit=False)
+            new_tournament.club = club
+            new_tournament.save()
+            return redirect('club_manager:club', club_id=club.id)
+
+    context = {'club': club, 'form': form}
+    return render(request, 'club_manager/add_tournament.html', context)
