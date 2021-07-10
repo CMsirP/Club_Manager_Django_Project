@@ -3,19 +3,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>edit_club</title>
+    <title>edit_tournament</title>
 </head>
 <body>
     {% block content %}
-        <p><a href="{% url 'club_manager:club' club.id %}">{{ club }}</a></p>
 
-        <p>Edit club:</p>
+        <p>Edit tournament:</p>
 
-        <form action="{% url 'club_manager:edit_club' club.id %}" method="post">
+        <form action="{% url 'club_manager:edit_tournament' tournament.id %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button name="submit">Save changes</button>
         </form>
+
     {% endblock content %}
 </body>
 </html>

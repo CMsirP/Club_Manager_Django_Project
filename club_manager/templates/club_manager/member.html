@@ -30,6 +30,10 @@
         <p>
             <a href="{% url 'club_manager:add_officer' member.id %}">Add member as an officer to the club</a>
         </p>
+
+        <p>
+            <a href="{% url 'club_manager:delete_member' member.pk %}">Delete member</a>
+        </p>
     {% endblock content %}
 </body>
 </html>

@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.views.generic.edit import DeleteView
 from club_manager.models import Club, Group, Member, Player, Officer, Coach, Tournament
 from .forms import ClubForm, GroupForm, MemberForm, PlayerForm, OfficerForm, CoachForm, TournamentForm
 
@@ -54,6 +55,14 @@ def tournament(request, tournament_id):
     players = tournament.players_list.all()
     context = {'club': club, 'players': players, 'tournament': tournament}
     return render(request, 'club_manager/tournament.html', context)
+
+
+def player(request, player_id):
+    """Shows a single player and their details."""
+    player = Player.objects.get(id=player_id)
+    group = player.group
+    context = {'group': group, 'player': player}
+    return render(request, 'club_manager/player.html', context)
 
 
 def new_club(request):
@@ -170,6 +179,25 @@ def edit_club(request, club_id):
     return render(request, 'club_manager/edit_club.html', context)
 
 
+def edit_tournament(request, tournament_id):
+    """Edit an existing tournament."""
+    tournament = Tournament.objects.get(id=tournament_id)
+    club = tournament.club
+
+    if request.method != 'POST':
+        # Initial request; pre-fill form with the current tournament details.
+        form = TournamentForm(club_id=club.id, instance=tournament)
+    else:
+        # POST data submitted; process data.
+        form = TournamentForm(club_id=club.id, instance=tournament, data=request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect('club_manager:tournament', tournament_id=tournament.id)
+
+    context = {'tournament': tournament, 'form': form}
+    return render(request, 'club_manager/edit_tournament.html', context)
+
+
 def add_player(request, member_id):
     """Add a particular member as a player to a group."""
     member = Member.objects.get(id=member_id)
@@ -243,7 +271,43 @@ def add_tournament(request, club_id):
             new_tournament = form.save(commit=False)
             new_tournament.club = club
             new_tournament.save()
+            form.save_m2m()
             return redirect('club_manager:club', club_id=club.id)
 
     context = {'club': club, 'form': form}
     return render(request, 'club_manager/add_tournament.html', context)
+
+
+class PlayerDeleteView(DeleteView):
+    model = Player
+    success_url = '/club_manager/clubs/group/{group_id}'
+
+
+class OfficerDeleteView(DeleteView):
+    model = Officer
+    success_url = '/club_manager/clubs/{club_id}/'
+
+
+class CoachDeleteView(DeleteView):
+    model = Coach
+    success_url = '/club_manager/clubs/group/{group_id}'
+
+
+class TournamentDeleteView(DeleteView):
+    model = Tournament
+    success_url = '/club_manager/clubs/{club_id}/'
+
+
+class MemberDeleteView(DeleteView):
+    model = Member
+    success_url = '/club_manager/clubs/{club_id}/'
+
+
+class GroupDeleteView(DeleteView):
+    model = Group
+    success_url = '/club_manager/clubs/{club_id}/'
+
+
+class ClubDeleteView(DeleteView):
+    model = Club
+    success_url = '/club_manager/clubs/'

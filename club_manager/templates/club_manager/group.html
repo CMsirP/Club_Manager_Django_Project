@@ -20,6 +20,9 @@
               {% for coach in coaches %}
               <li>
                   <p> {{ coach }}</p>
+                  <p>
+                      <a href="{% url 'club_manager:delete_coach' coach.pk %}">Delete coach</a>
+                  </p>
               </li>
                 {% empty %}
                   <li>No coaches have been added to {{ group }} yet.</li>
@@ -33,7 +36,7 @@
             <ul>
               {% for player in players %}
               <li>
-                  <p> {{ player }}</p>
+                  <a href="{% url 'club_manager:player' player.id %}">{{ player }}</a>
               </li>
                 {% empty %}
                   <li>No players have been added to {{ group }} yet.</li>

@@ -16,9 +16,23 @@
 
         <p>Registered Players:</p>
             <ul>
-                <p>{{ players }}</p>
+              {% for player in players %}
+                <li>
+                    {{ player }}
+                </li>
+                {% empty %}
+                  <li>No players have been registered yet.</li>
+              {% endfor %}
             </ul>
 
+        <p>
+            <a href="{% url 'club_manager:edit_tournament' tournament.id %}">Edit tournament</a>
+        </p>
+
+
+        <p>
+            <a href="{% url 'club_manager:delete_tournament' tournament.pk %}">Delete tournament</a>
+        </p>
     {% endblock content %}
 </body>
 </html>
