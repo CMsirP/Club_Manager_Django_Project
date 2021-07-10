@@ -69,6 +69,9 @@
             <p>
                 <a href="{% url 'club_manager:edit_club' club.id %}">Edit club</a>
             </p>
+            <p>
+                <a href="{% url 'club_manager:delete_club' club.pk %}">Delete club</a>
+            </p>
         </li>
     {% endblock content %}
 </body>

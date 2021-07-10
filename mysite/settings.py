@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # club_manager apps
     'club_manager.apps.ClubManagerConfig',
+    'users.apps.UsersConfig',
     # default apps
     'django.contrib.admin',
     'django.contrib.auth',
