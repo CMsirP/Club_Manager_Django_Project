@@ -1,10 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # models for club_manager
 class Club(models.Model):
     club_name = models.CharField(max_length=100)
     club_type = models.CharField(max_length=50, default="Chess")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.club_name

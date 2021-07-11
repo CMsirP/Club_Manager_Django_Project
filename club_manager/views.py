@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import DeleteView
 from club_manager.models import Club, Group, Member, Player, Officer, Coach, Tournament
 from .forms import ClubForm, GroupForm, MemberForm, PlayerForm, OfficerForm, CoachForm, TournamentForm
@@ -9,6 +9,7 @@ def index(request):
     return render(request, 'club_manager/index.html')
 
 
+@login_required
 def clubs(request):
     """Show all clubs."""
     clubs = Club.objects.order_by('club_name')
@@ -16,6 +17,7 @@ def clubs(request):
     return render(request, 'club_manager/clubs.html', context)
 
 
+@login_required
 def club(request, club_id):
     """Shows a single club and its details."""
     club = Club.objects.get(id=club_id)
@@ -30,6 +32,7 @@ def club(request, club_id):
     return render(request, 'club_manager/club.html', context)
 
 
+@login_required
 def group(request, group_id):
     """Shows a single group and its details."""
     group = Group.objects.get(id=group_id)
@@ -40,6 +43,7 @@ def group(request, group_id):
     return render(request, 'club_manager/group.html', context)
 
 
+@login_required
 def member(request, member_id):
     """Shows a single member and their details."""
     member = Member.objects.get(id=member_id)
@@ -48,6 +52,7 @@ def member(request, member_id):
     return render(request, 'club_manager/member.html', context)
 
 
+@login_required
 def tournament(request, tournament_id):
     """Shows a single member and their details."""
     tournament = Tournament.objects.get(id=tournament_id)
@@ -57,6 +62,7 @@ def tournament(request, tournament_id):
     return render(request, 'club_manager/tournament.html', context)
 
 
+@login_required
 def player(request, player_id):
     """Shows a single player and their details."""
     player = Player.objects.get(id=player_id)
@@ -65,6 +71,7 @@ def player(request, player_id):
     return render(request, 'club_manager/player.html', context)
 
 
+@login_required
 def new_club(request):
     """Create a new club."""
     if request.method != 'POST':
@@ -81,6 +88,7 @@ def new_club(request):
     return render(request, 'club_manager/new_club.html', context)
 
 
+@login_required
 def new_group(request, club_id):
     """Create a new group for a particular club."""
     club = Club.objects.get(id=club_id)
@@ -102,6 +110,7 @@ def new_group(request, club_id):
     return render(request, 'club_manager/new_group.html', context)
 
 
+@login_required
 def new_member(request, club_id):
     """Create a new member associated with a particular club."""
     club = Club.objects.get(id=club_id)
@@ -123,6 +132,7 @@ def new_member(request, club_id):
     return render(request, 'club_manager/new_member.html', context)
 
 
+@login_required
 def edit_group(request, group_id):
     """Edit an existing group."""
     group = Group.objects.get(id=group_id)
@@ -142,6 +152,7 @@ def edit_group(request, group_id):
     return render(request, 'club_manager/edit_group.html', context)
 
 
+@login_required
 def edit_member(request, member_id):
     """Edit an existing member."""
     member = Member.objects.get(id=member_id)
@@ -161,6 +172,7 @@ def edit_member(request, member_id):
     return render(request, 'club_manager/edit_member.html', context)
 
 
+@login_required
 def edit_club(request, club_id):
     """Edit an existing club."""
     club = Club.objects.get(id=club_id)
@@ -179,6 +191,7 @@ def edit_club(request, club_id):
     return render(request, 'club_manager/edit_club.html', context)
 
 
+@login_required
 def edit_tournament(request, tournament_id):
     """Edit an existing tournament."""
     tournament = Tournament.objects.get(id=tournament_id)
@@ -198,6 +211,7 @@ def edit_tournament(request, tournament_id):
     return render(request, 'club_manager/edit_tournament.html', context)
 
 
+@login_required
 def add_player(request, member_id):
     """Add a particular member as a player to a group."""
     member = Member.objects.get(id=member_id)
@@ -218,6 +232,7 @@ def add_player(request, member_id):
     return render(request, 'club_manager/add_player.html', context)
     
 
+@login_required
 def add_officer(request, member_id):
     """Add a particular member as an officer to their associated club."""
     member = Member.objects.get(id=member_id)
@@ -239,6 +254,7 @@ def add_officer(request, member_id):
     return render(request, 'club_manager/add_officer.html', context)
 
 
+@login_required
 def add_coach(request, group_id):
     """Add a member as a coach to a group."""
     group = Group.objects.get(id=group_id)
@@ -259,6 +275,7 @@ def add_coach(request, group_id):
     return render(request, 'club_manager/add_coach.html', context)
 
 
+@login_required
 def add_tournament(request, club_id):
     club = Club.objects.get(id=club_id)
 
