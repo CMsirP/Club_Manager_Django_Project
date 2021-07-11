@@ -1,18 +1,20 @@
 {% extends "club_manager/base.html" %}
 
+{% block page_header %}
+    <p><h2><a href="{% url 'club_manager:club' club.id %}">{{ club }}</a></h2></p>
+{% endblock page_header %}
+
 {% block content %}
-    <p><a href="{% url 'club_manager:club' club.id %}">{{ club }}</a></p>
 
-    <p>Member:
-        <li>
-        <p>Name: {{ member.name }}</p>
-        <p>Birthdate: {{ member.birthdate }}</p>
-        <p>Email: {{ member.email }}</p>
-        <p>Phone: {{ member.phone }}</p>
-        </li>
-
+    <p><i>Member:</i>
+        <p><b>Name:</b> {{ member.name }}</p>
+        <p><b>Birthdate:</b> {{ member.birthdate }}</p>
+        <p><b>Email:</b> {{ member.email }}</p>
+        <p><b>Phone:</b> {{ member.phone }}</p>
     </p>
 
+    <p><i>Actions:</i></p>
+    <hr/>
     <p>
         <a href="{% url 'club_manager:edit_member' member.id %}">Edit member</a>
     </p>

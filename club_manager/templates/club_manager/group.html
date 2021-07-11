@@ -1,14 +1,17 @@
 {% extends "club_manager/base.html" %}
 
-{% block content %}
-    <p><a href="{% url 'club_manager:club' club.id %}">{{ club }}</a></p>
+{% block page_header %}
+    <p><h2><a href="{% url 'club_manager:club' club.id %}">{{ club }}</a></h2></p>
+{% endblock page_header %}
 
-    <p>Group: {{ group }}</p>
+{% block content %}
+
+    <p><h4>Group: {{ group }}</h4></p>
     <p>
         <a href="{% url 'club_manager:edit_group' group.id %}">Edit group</a>
     </p>
 
-    <p>Coaches:</p>
+    <p><h6>Coaches:</h6></p>
         <p>
         <ul>
           {% for coach in coaches %}
@@ -25,8 +28,9 @@
         </p>
 
         <p><a href="{% url 'club_manager:add_coach' group.id %}">Add a coach</a></p>
+    <hr/>
 
-    <p>Players:</p>
+    <p><h6>Players:</h6></p>
         <ul>
           {% for player in players %}
           <li>

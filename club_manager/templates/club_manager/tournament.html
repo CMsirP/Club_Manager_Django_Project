@@ -1,14 +1,16 @@
 {% extends "club_manager/base.html" %}
 
-{% block content %}
-    <p>Tournament:</p>
-        <li>
-        <p>Name: {{ tournament.tourn_name }}</p>
-        <p>Date: {{ tournament.t_date }}</p>
-        <p>Sponsoring Club: {{ club }}</p>
-        </li>
+{% block page_header %}
+    <p><h2><a href="{% url 'club_manager:club' club.id %}">{{ club }}</a></h2></p>
+{% endblock page_header %}
 
-    <p>Registered Players:</p>
+{% block content %}
+    <p><h4>Tournament:</h4></p>
+    <p><b>Name:</b> {{ tournament.tourn_name }}</p>
+    <p><b>Date:</b> {{ tournament.t_date }}</p>
+    <p><b>Sponsoring Club:</b> {{ club }}</p>
+
+    <p><b>Registered Players:</b></p>
         <ul>
           {% for player in players %}
             <li>
@@ -19,10 +21,12 @@
           {% endfor %}
         </ul>
 
+    <p><i>Actions:</i></p>
+    <hr/>
+    
     <p>
         <a href="{% url 'club_manager:edit_tournament' tournament.id %}">Edit tournament</a>
     </p>
-
 
     <p>
         <a href="{% url 'club_manager:delete_tournament' tournament.pk %}">Delete tournament</a>

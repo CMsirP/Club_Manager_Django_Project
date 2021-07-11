@@ -1,8 +1,10 @@
 {% extends "club_manager/base.html" %}
 
-{% block content %}
+{% block page_header %}
+    <p><h2><a href="{% url 'club_manager:club' club.id %}">{{ club }}</a></h2></p>
+{% endblock page_header %}
 
-    <p><a href="{% url 'club_manager:club' club.id %}">{{ club }}</a></p>
+{% block content %}
 
     <p>Create a new group:</p>
         <form action="{% url 'club_manager:new_group' club.id %}" method="post">

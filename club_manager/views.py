@@ -88,7 +88,7 @@ def player(request, player_id):
     club = group.club
     check_club_owner(club.owner, request.user)
 
-    context = {'group': group, 'player': player}
+    context = {'group': group, 'player': player, 'club': club}
     return render(request, 'club_manager/player.html', context)
 
 
@@ -235,7 +235,7 @@ def edit_tournament(request, tournament_id):
         form.save()
         return redirect('club_manager:tournament', tournament_id=tournament.id)
 
-    context = {'tournament': tournament, 'form': form}
+    context = {'tournament': tournament, 'form': form, 'club': club}
     return render(request, 'club_manager/edit_tournament.html', context)
 
 

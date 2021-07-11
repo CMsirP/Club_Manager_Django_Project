@@ -1,24 +1,28 @@
 {% extends "club_manager/base.html" %}
 
+{% block page_header %}
+    <h2>{{ club }}</h2>
+{% endblock page_header %}
+
 {% block content %}
-    <p>Club: {{ club }}</p>
-    <p>Club type: {{ club.club_type }}</p>
-    <li>
-        <p>Groups:</p>
+    <p><i>Club type: {{ club.club_type }}</i></p>
+
+    <h4>Groups:</h4>
         <p>
             <a href="{% url 'club_manager:new_group' club.id %}">Create new group</a>
         </p>
-            <ul>
-              {% for group in groups %}
+        <ul>
+        {% for group in groups %}
               <li>
                   <a href="{% url 'club_manager:group' group.id %}">{{ group }}</a>
               </li>
-                {% empty %}
-                  <li>No groups have been added to {{ club }} yet.</li>
-              {% endfor %}
-            </ul>
+        {% empty %}
+          <p>No groups have been added to {{ club }} yet.</p>
+        {% endfor %}
+        </ul>
+        <hr/>
 
-        <p>Members:</p>
+        <h4>Members:</h4>
         <p>
             <a href="{% url 'club_manager:new_member' club.id %}">Add new member</a>
         </p>
@@ -32,7 +36,9 @@
               {% endfor %}
             </ul>
 
-        <p>Tournaments:</p>
+        <hr/>
+
+        <h4>Tournaments:</h4>
         <p>
             <a href="{% url 'club_manager:add_tournament' club.id %}">Create tournament</a>
         </p>
@@ -46,7 +52,9 @@
               {% endfor %}
             </ul>
 
-        <p>Officers:</p>
+        <hr/>
+
+        <h4>Officers:</h4>
             <ul>
               {% for officer in officers %}
               <li>
@@ -60,11 +68,12 @@
               {% endfor %}
             </ul>
 
+        <hr/>
+
         <p>
             <a href="{% url 'club_manager:edit_club' club.id %}">Edit club</a>
         </p>
         <p>
             <a href="{% url 'club_manager:delete_club' club.pk %}">Delete club</a>
         </p>
-    </li>
 {% endblock content %}

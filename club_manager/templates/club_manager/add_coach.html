@@ -1,7 +1,7 @@
 {% extends "club_manager/base.html" %}
 
 {% block content %}
-    <p><a href="{% url 'club_manager:group' group.id %}">{{ group }}</a></p>
+    <p><h3><a href="{% url 'club_manager:group' group.id %}">{{ group }}</a></h3></p>
 
     <form action="{% url 'club_manager:add_coach' group.id %}" method="POST">
             {% csrf_token %}
