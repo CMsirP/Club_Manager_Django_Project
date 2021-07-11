@@ -1,18 +1,10 @@
 {% extends "club_manager/base.html" %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>new_club</title>
-</head>
-<body>
-    {% block content %}
-        <p>Create a new club:</p>
-            <form action="{% url 'club_manager:new_club' %}" method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button name="submit">Create club</button>
-            </form>
-    {% endblock content %}
-</body>
-</html>
+
+{% block content %}
+    <p>Create a new club:</p>
+        <form action="{% url 'club_manager:new_club' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button name="submit">Create club</button>
+        </form>
+{% endblock content %}

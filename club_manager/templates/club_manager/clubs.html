@@ -1,25 +1,17 @@
 {% extends "club_manager/base.html" %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    {% block content %}
-        <p>Clubs</p>
-            <ul>
-              {% for club in clubs %}
-                <li>
-                    <a href="{% url 'club_manager:club' club.id %}">{{ club }}</a>
-                </li>
-                {% empty %}
-                  <li>No clubs have been added yet.</li>
-              {% endfor %}
-            </ul>
 
-        <a href="{% url 'club_manager:new_club' %}">Create a new club</a>
+{% block content %}
+    <p>Clubs</p>
+        <ul>
+          {% for club in clubs %}
+            <li>
+                <a href="{% url 'club_manager:club' club.id %}">{{ club }}</a>
+            </li>
+            {% empty %}
+              <li>No clubs have been added yet.</li>
+          {% endfor %}
+        </ul>
 
-    {% endblock content %}
-</body>
-</html>
+    <a href="{% url 'club_manager:new_club' %}">Create a new club</a>
+
+{% endblock content %}

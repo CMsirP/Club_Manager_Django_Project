@@ -1,39 +1,31 @@
 {% extends "club_manager/base.html" %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>member</title>
-</head>
-<body>
-    {% block content %}
-        <p><a href="{% url 'club_manager:club' club.id %}">{{ club }}</a></p>
 
-        <p>Member:
-            <li>
-            <p>Name: {{ member.name }}</p>
-            <p>Birthdate: {{ member.birthdate }}</p>
-            <p>Email: {{ member.email }}</p>
-            <p>Phone: {{ member.phone }}</p>
-            </li>
+{% block content %}
+    <p><a href="{% url 'club_manager:club' club.id %}">{{ club }}</a></p>
 
-        </p>
+    <p>Member:
+        <li>
+        <p>Name: {{ member.name }}</p>
+        <p>Birthdate: {{ member.birthdate }}</p>
+        <p>Email: {{ member.email }}</p>
+        <p>Phone: {{ member.phone }}</p>
+        </li>
 
-        <p>
-            <a href="{% url 'club_manager:edit_member' member.id %}">Edit member</a>
-        </p>
+    </p>
 
-        <p>
-            <a href="{% url 'club_manager:add_player' member.id %}">Add member as a player to a group</a>
-        </p>
+    <p>
+        <a href="{% url 'club_manager:edit_member' member.id %}">Edit member</a>
+    </p>
 
-        <p>
-            <a href="{% url 'club_manager:add_officer' member.id %}">Add member as an officer to the club</a>
-        </p>
+    <p>
+        <a href="{% url 'club_manager:add_player' member.id %}">Add member as a player to a group</a>
+    </p>
 
-        <p>
-            <a href="{% url 'club_manager:delete_member' member.pk %}">Delete member</a>
-        </p>
-    {% endblock content %}
-</body>
-</html>
+    <p>
+        <a href="{% url 'club_manager:add_officer' member.id %}">Add member as an officer to the club</a>
+    </p>
+
+    <p>
+        <a href="{% url 'club_manager:delete_member' member.pk %}">Delete member</a>
+    </p>
+{% endblock content %}

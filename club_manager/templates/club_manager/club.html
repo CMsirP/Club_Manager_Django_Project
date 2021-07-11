@@ -1,78 +1,70 @@
 {% extends "club_manager/base.html" %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>club_detail</title>
-</head>
-<body>
-    {% block content %}
-        <p>Club: {{ club }}</p>
-        <p>Club type: {{ club.club_type }}</p>
-        <li>
-            <p>Groups:</p>
-            <p>
-                <a href="{% url 'club_manager:new_group' club.id %}">Create new group</a>
-            </p>
-                <ul>
-                  {% for group in groups %}
-                  <li>
-                      <a href="{% url 'club_manager:group' group.id %}">{{ group }}</a>
-                  </li>
-                    {% empty %}
-                      <li>No groups have been added to {{ club }} yet.</li>
-                  {% endfor %}
-                </ul>
 
-            <p>Members:</p>
-            <p>
-                <a href="{% url 'club_manager:new_member' club.id %}">Add new member</a>
-            </p>
-                <ul>
-                  {% for member in members %}
-                  <li>
-                      <a href="{% url 'club_manager:member' member.id %}">{{ member }}</a>
-                  </li>
-                    {% empty %}
-                      <li>No members have been added to {{ club }} yet.</li>
-                  {% endfor %}
-                </ul>
+{% block content %}
+    <p>Club: {{ club }}</p>
+    <p>Club type: {{ club.club_type }}</p>
+    <li>
+        <p>Groups:</p>
+        <p>
+            <a href="{% url 'club_manager:new_group' club.id %}">Create new group</a>
+        </p>
+            <ul>
+              {% for group in groups %}
+              <li>
+                  <a href="{% url 'club_manager:group' group.id %}">{{ group }}</a>
+              </li>
+                {% empty %}
+                  <li>No groups have been added to {{ club }} yet.</li>
+              {% endfor %}
+            </ul>
 
-            <p>Tournaments:</p>
-            <p>
-                <a href="{% url 'club_manager:add_tournament' club.id %}">Create tournament</a>
-            </p>
-                <ul>
-                  {% for tournament in tournaments %}
-                  <li>
-                      <a href="{% url 'club_manager:tournament' tournament.id %}">{{ tournament }}</a>
-                  </li>
-                    {% empty %}
-                      <li>No tournaments have been added to {{ club }} yet.</li>
-                  {% endfor %}
-                </ul>
+        <p>Members:</p>
+        <p>
+            <a href="{% url 'club_manager:new_member' club.id %}">Add new member</a>
+        </p>
+            <ul>
+              {% for member in members %}
+              <li>
+                  <a href="{% url 'club_manager:member' member.id %}">{{ member }}</a>
+              </li>
+                {% empty %}
+                  <li>No members have been added to {{ club }} yet.</li>
+              {% endfor %}
+            </ul>
 
-            <p>Officers:</p>
-                <ul>
-                  {% for officer in officers %}
-                  <li>
-                    {{ officer }}
-                    <p>
-                      <a href="{% url 'club_manager:delete_officer' officer.pk %}">Delete officer</a>
-                    </p>
-                  </li>
-                    {% empty %}
-                      <li>No officers have been added to {{ club }} yet.</li>
-                  {% endfor %}
-                </ul>
+        <p>Tournaments:</p>
+        <p>
+            <a href="{% url 'club_manager:add_tournament' club.id %}">Create tournament</a>
+        </p>
+            <ul>
+              {% for tournament in tournaments %}
+              <li>
+                  <a href="{% url 'club_manager:tournament' tournament.id %}">{{ tournament }}</a>
+              </li>
+                {% empty %}
+                  <li>No tournaments have been added to {{ club }} yet.</li>
+              {% endfor %}
+            </ul>
 
-            <p>
-                <a href="{% url 'club_manager:edit_club' club.id %}">Edit club</a>
-            </p>
-            <p>
-                <a href="{% url 'club_manager:delete_club' club.pk %}">Delete club</a>
-            </p>
-        </li>
-    {% endblock content %}
-</body>
-</html>
+        <p>Officers:</p>
+            <ul>
+              {% for officer in officers %}
+              <li>
+                {{ officer }}
+                <p>
+                  <a href="{% url 'club_manager:delete_officer' officer.pk %}">Delete officer</a>
+                </p>
+              </li>
+                {% empty %}
+                  <li>No officers have been added to {{ club }} yet.</li>
+              {% endfor %}
+            </ul>
+
+        <p>
+            <a href="{% url 'club_manager:edit_club' club.id %}">Edit club</a>
+        </p>
+        <p>
+            <a href="{% url 'club_manager:delete_club' club.pk %}">Delete club</a>
+        </p>
+    </li>
+{% endblock content %}

@@ -1,14 +1,17 @@
 {% extends "club_manager/base.html" %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>index</title>
-</head>
-<body>
-  {% block content %}
-    <p> Club Manager allows you to manage any kind of club, such as chess,
-        tennis, or gaming.</p>
-  {% endblock content %}
-</body>
-</html>
+
+  {% block page_header %}
+      <div class="jumbotron">
+        <h1 class="display-3">Manage your clubs.</h1>
+
+        <p class="lead">Create and manage clubs of any kind using Club Manager.
+        You can manage any number and type of club. After creating a club, you can
+        add members and groups to it. Members can be designated as officers for the club,
+        as well as coaches and/or players for your groups. You can also track your upcoming
+        competitions and register players for those competitions. Get started with Club Manager now.
+        </p>
+
+        <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+            role="button">Register &raquo;</a>
+      </div>
+  {% endblock page_header %}

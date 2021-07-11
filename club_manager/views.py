@@ -12,6 +12,12 @@ def index(request):
     return render(request, 'club_manager/index.html')
 
 
+def check_club_owner(club_owner, request_user):
+    # Ensure that club can only be accessed by appropriate owner.
+    if club_owner != request_user:
+        raise Http404
+
+
 @login_required
 def clubs(request):
     """Show all clubs."""
@@ -25,8 +31,8 @@ def club(request, club_id):
     """Shows a single club and its details."""
     club = Club.objects.get(id=club_id)
     # Ensure that club can only be accessed by appropriate owner.
-    if club.owner != request.user:
-        raise Http404
+    check_club_owner(club.owner, request.user)
+
     groups = club.group_set.order_by('group_name')
     members = club.member_set.order_by('name')
     officers = club.officer_set.order_by('role')
@@ -43,8 +49,8 @@ def group(request, group_id):
     """Shows a single group and its details."""
     group = Group.objects.get(id=group_id)
     club = group.club
-    if club.owner != request.user:
-        raise Http404
+    check_club_owner(club.owner, request.user)
+
     players = group.player_set.order_by('id')
     coaches = group.coach_set.order_by('id')
     context = {'club': club, 'group': group, 'players': players, 'coaches': coaches}
@@ -56,8 +62,8 @@ def member(request, member_id):
     """Shows a single member and their details."""
     member = Member.objects.get(id=member_id)
     club = member.club
-    if club.owner != request.user:
-        raise Http404
+    check_club_owner(club.owner, request.user)
+
     context = {'club': club, 'member': member}
     return render(request, 'club_manager/member.html', context)
 
@@ -67,8 +73,8 @@ def tournament(request, tournament_id):
     """Shows a single member and their details."""
     tournament = Tournament.objects.get(id=tournament_id)
     club = tournament.club
-    if club.owner != request.user:
-        raise Http404
+    check_club_owner(club.owner, request.user)
+
     players = tournament.players_list.all()
     context = {'club': club, 'players': players, 'tournament': tournament}
     return render(request, 'club_manager/tournament.html', context)
@@ -80,8 +86,8 @@ def player(request, player_id):
     player = Player.objects.get(id=player_id)
     group = player.group
     club = group.club
-    if club.owner != request.user:
-        raise Http404
+    check_club_owner(club.owner, request.user)
+
     context = {'group': group, 'player': player}
     return render(request, 'club_manager/player.html', context)
 
@@ -155,8 +161,7 @@ def edit_group(request, group_id):
     """Edit an existing group."""
     group = Group.objects.get(id=group_id)
     club = group.club
-    if club.owner != request.user:
-        raise Http404
+    check_club_owner(club.owner, request.user)
 
     if request.method != 'POST':
         # Initial request; pre-fill form with the current group details.
@@ -177,8 +182,7 @@ def edit_member(request, member_id):
     """Edit an existing member."""
     member = Member.objects.get(id=member_id)
     club = member.club
-    if club.owner != request.user:
-        raise Http404
+    check_club_owner(club.owner, request.user)
 
     if request.method != 'POST':
         # Initial request; pre-fill form with the current member details.
@@ -198,8 +202,7 @@ def edit_member(request, member_id):
 def edit_club(request, club_id):
     """Edit an existing club."""
     club = Club.objects.get(id=club_id)
-    if club.owner != request.user:
-        raise Http404
+    check_club_owner(club.owner, request.user)
 
     if request.method != 'POST':
         # Initial request; pre-fill form with the current club details.
@@ -220,8 +223,7 @@ def edit_tournament(request, tournament_id):
     """Edit an existing tournament."""
     tournament = Tournament.objects.get(id=tournament_id)
     club = tournament.club
-    if club.owner != request.user:
-        raise Http404
+    check_club_owner(club.owner, request.user)
 
     if request.method != 'POST':
         # Initial request; pre-fill form with the current tournament details.
@@ -242,8 +244,7 @@ def add_player(request, member_id):
     """Add a particular member as a player to a group."""
     member = Member.objects.get(id=member_id)
     club = member.club
-    if club.owner != request.user:
-        raise Http404
+    check_club_owner(club.owner, request.user)
 
     if request.method != 'POST':
         form = PlayerForm(member.id)
@@ -265,8 +266,7 @@ def add_officer(request, member_id):
     """Add a particular member as an officer to their associated club."""
     member = Member.objects.get(id=member_id)
     club = member.club
-    if club.owner != request.user:
-        raise Http404
+    check_club_owner(club.owner, request.user)
 
     if request.method != 'POST':
         form = OfficerForm()
@@ -289,8 +289,7 @@ def add_coach(request, group_id):
     """Add a member as a coach to a group."""
     group = Group.objects.get(id=group_id)
     club = group.club
-    if club.owner != request.user:
-        raise Http404
+    check_club_owner(club.owner, request.user)
 
     if request.method != 'POST':
         form = CoachForm(group.id)
@@ -310,8 +309,7 @@ def add_coach(request, group_id):
 @login_required
 def add_tournament(request, club_id):
     club = Club.objects.get(id=club_id)
-    if club.owner != request.user:
-        raise Http404
+    check_club_owner(club.owner, request.user)
 
     if request.method != 'POST':
         form = TournamentForm(club.id)

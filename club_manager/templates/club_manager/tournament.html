@@ -1,38 +1,30 @@
 {% extends "club_manager/base.html" %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>tournament</title>
-</head>
-<body>
-    {% block content %}
-        <p>Tournament:</p>
+
+{% block content %}
+    <p>Tournament:</p>
+        <li>
+        <p>Name: {{ tournament.tourn_name }}</p>
+        <p>Date: {{ tournament.t_date }}</p>
+        <p>Sponsoring Club: {{ club }}</p>
+        </li>
+
+    <p>Registered Players:</p>
+        <ul>
+          {% for player in players %}
             <li>
-            <p>Name: {{ tournament.tourn_name }}</p>
-            <p>Date: {{ tournament.t_date }}</p>
-            <p>Sponsoring Club: {{ club }}</p>
+                {{ player }}
             </li>
+            {% empty %}
+              <li>No players have been registered yet.</li>
+          {% endfor %}
+        </ul>
 
-        <p>Registered Players:</p>
-            <ul>
-              {% for player in players %}
-                <li>
-                    {{ player }}
-                </li>
-                {% empty %}
-                  <li>No players have been registered yet.</li>
-              {% endfor %}
-            </ul>
-
-        <p>
-            <a href="{% url 'club_manager:edit_tournament' tournament.id %}">Edit tournament</a>
-        </p>
+    <p>
+        <a href="{% url 'club_manager:edit_tournament' tournament.id %}">Edit tournament</a>
+    </p>
 
 
-        <p>
-            <a href="{% url 'club_manager:delete_tournament' tournament.pk %}">Delete tournament</a>
-        </p>
-    {% endblock content %}
-</body>
-</html>
+    <p>
+        <a href="{% url 'club_manager:delete_tournament' tournament.pk %}">Delete tournament</a>
+    </p>
+{% endblock content %}

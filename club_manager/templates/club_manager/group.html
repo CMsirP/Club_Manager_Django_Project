@@ -1,51 +1,43 @@
 {% extends "club_manager/base.html" %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>group</title>
-</head>
-<body>
-    {% block content %}
-        <p><a href="{% url 'club_manager:club' club.id %}">{{ club }}</a></p>
 
-        <p>Group: {{ group }}</p>
+{% block content %}
+    <p><a href="{% url 'club_manager:club' club.id %}">{{ club }}</a></p>
+
+    <p>Group: {{ group }}</p>
+    <p>
+        <a href="{% url 'club_manager:edit_group' group.id %}">Edit group</a>
+    </p>
+
+    <p>Coaches:</p>
         <p>
-            <a href="{% url 'club_manager:edit_group' group.id %}">Edit group</a>
+        <ul>
+          {% for coach in coaches %}
+          <li>
+              <p> {{ coach }}</p>
+              <p>
+                  <a href="{% url 'club_manager:delete_coach' coach.pk %}">Delete coach</a>
+              </p>
+          </li>
+            {% empty %}
+              <li>No coaches have been added to {{ group }} yet.</li>
+          {% endfor %}
+        </ul>
         </p>
 
-        <p>Coaches:</p>
-            <p>
-            <ul>
-              {% for coach in coaches %}
-              <li>
-                  <p> {{ coach }}</p>
-                  <p>
-                      <a href="{% url 'club_manager:delete_coach' coach.pk %}">Delete coach</a>
-                  </p>
-              </li>
-                {% empty %}
-                  <li>No coaches have been added to {{ group }} yet.</li>
-              {% endfor %}
-            </ul>
-            </p>
+        <p><a href="{% url 'club_manager:add_coach' group.id %}">Add a coach</a></p>
 
-            <p><a href="{% url 'club_manager:add_coach' group.id %}">Add a coach</a></p>
+    <p>Players:</p>
+        <ul>
+          {% for player in players %}
+          <li>
+              <a href="{% url 'club_manager:player' player.id %}">{{ player }}</a>
+          </li>
+            {% empty %}
+              <li>No players have been added to {{ group }} yet.</li>
+          {% endfor %}
+        </ul>
 
-        <p>Players:</p>
-            <ul>
-              {% for player in players %}
-              <li>
-                  <a href="{% url 'club_manager:player' player.id %}">{{ player }}</a>
-              </li>
-                {% empty %}
-                  <li>No players have been added to {{ group }} yet.</li>
-              {% endfor %}
-            </ul>
-
-        <p>
-            <a href="{% url 'club_manager:delete_group' group.pk %}">Delete group</a>
-        </p>
-    {% endblock content %}
-</body>
-</html>
+    <p>
+        <a href="{% url 'club_manager:delete_group' group.pk %}">Delete group</a>
+    </p>
+{% endblock content %}

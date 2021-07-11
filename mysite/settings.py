@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     # club_manager apps
     'club_manager.apps.ClubManagerConfig',
     'users.apps.UsersConfig',
+    # Third party apps
+    'bootstrap4',
     # default apps
     'django.contrib.admin',
     'django.contrib.auth',
