@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-z)6v39cczb9%_77w6chsb9hk)4d3*zpnes3yrir3soxl9#m6#7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://secret-gorge-62286.herokuapp.com/']
 
 
 # Application definition
