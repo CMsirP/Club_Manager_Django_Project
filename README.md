@@ -1,4 +1,4 @@
-# m6_final - Club Manager
+Club Manager
 
 Project Rationale
 =================
